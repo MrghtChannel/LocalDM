@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Выбор персонажа</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Размеры в CSS заданы в долях сетки 1536x864: 1rem = 10 дизайн-пикселей (масштаб ставит script.js) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sil" viewBox="0 0 100 100">
+      <path d="M-8.52 99.36 L-7.46 98.72 L13.71 80.77 L17.09 77.04 L19.70 74.81 L24.28 71.71 L27.51 69.99 L32.66 67.56 L37.99 65.69 L38.83 64.97 L39.22 63.72 L39.50 60.71 L39.32 58.75 L38.70 57.60 L36.49 55.38 L35.45 53.96 L34.98 52.90 L33.46 47.75 L33.02 47.14 L31.77 46.15 L31.30 45.44 L30.74 43.67 L29.85 38.70 L29.76 37.45 L29.95 36.57 L31.43 34.79 L31.73 33.73 L31.29 29.64 L30.54 27.34 L30.39 26.09 L31.58 18.82 L32.49 16.51 L35.32 13.13 L37.99 10.81 L40.65 9.22 L44.73 8.02 L53.78 7.97 L55.20 8.08 L56.45 8.43 L58.57 9.23 L60.88 10.50 L63.01 12.25 L64.79 14.02 L66.52 16.15 L67.52 17.93 L68.23 22.72 L69.01 25.56 L68.95 27.16 L67.92 29.64 L67.63 33.37 L67.82 34.61 L69.05 36.11 L69.50 37.45 L68.87 42.25 L67.63 46.14 L67.10 46.78 L66.03 47.58 L65.57 48.28 L64.56 52.19 L63.57 54.32 L60.57 57.87 L59.92 58.93 L59.74 59.82 L59.91 62.66 L60.49 64.79 L60.91 65.32 L61.59 65.76 L66.74 67.58 L72.60 70.37 L77.22 73.12 L79.17 74.54 L81.12 76.07 L82.72 77.66 L85.91 81.38 L107.21 100.01 L108.28 100.67Z"/>
+    </symbol>
+    <symbol id="gem" viewBox="0 0 12 11">
+      <path fill="currentColor" d="M3.2 0.4h5.6l3 3.4L6 10.8 0.2 3.8z"/>
+      <path fill="none" stroke="var(--gem-cut,#367fd1)" stroke-width=".7" stroke-linejoin="round" d="M0.4 3.9h11.2M3.4 0.5 4.6 3.9 6 10.6 7.4 3.9 8.6 0.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="stage">
+
+  <!-- верх слева -->
+  <div class="a tl"></div>
+
+  <!-- верх по центру -->
+  <div class="a tc">
+    <span class="t login-l">Логин аккаунта</span>
+    <span id="login" class="t login-v">—</span>
+  </div>
+
+  <!-- верх справа -->
+  <div class="a tr">
+    <div class="balance">
+      <span id="balance" class="bal-t">0</span>
+      <svg class="coin" viewBox="0 0 20 20" width="17" height="17"><circle cx="10" cy="10" r="10" fill="#ff7f35"/><path fill="#150b05" d="M10.4 3.2l1.8 4 4.4.5-3.3 2.9.9 4.3-3.8-2.2-3.8 2.2.9-4.3L4.3 7.7l4.4-.5z"/><path fill="none" stroke="#150b05" stroke-width="1.1" stroke-linecap="round" d="M12.6 6.2l5 -2.4"/></svg>
+    </div>
+  </div>
+
+  <!-- левая панель -->
+  <div class="a cl" id="info">
+    <div class="avatar" id="avatar"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><use href="#sil" width="100" height="100"/></svg></div>
+
+    <div class="who">
+      <h1 id="charName" class="t name">—</h1>
+    </div>
+
+    <div class="vip" id="vipRow">
+      <div class="vip-badge">
+        <svg class="vip-gem" viewBox="0 0 12 11" style="color:#fff;--gem-cut:#367fd1"><use href="#gem" width="12" height="11"/></svg>
+        <span id="vipName" class="vip-t">VIP</span>
+      </div>
+      <span id="vipUntil" class="vip-until"></span>
+    </div>
+
+    <div class="card level" id="levelCard"></div>
+    <svg class="ring" viewBox="0 0 20 20" width="20" height="20">
+      <circle cx="10" cy="10" r="8.25" fill="none" stroke="#343536" stroke-width="1.5"/>
+      <circle id="ringBar" cx="10" cy="10" r="8.25" fill="none" stroke="#ff7426" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="51.84" stroke-dashoffset="51.84" transform="rotate(-90 10 10)"/>
+    </svg>
+    <span class="t lvl"><span id="lvl">1</span> Уровень</span>
+    <div class="exp">
+      <span class="exp-l">Опыт:</span><span id="exp" class="exp-v">0</span><span class="exp-m">/ <span id="expMax">0</span></span>
+    </div>
+
+    <div class="card c-age"></div>
+    <div class="card c-org"></div>
+    <div class="card c-fac"></div>
+    <div class="card c-date"></div>
+    <div class="card c-cash"></div>
+    <div class="card c-bank"></div>
+
+    <span class="t lb lb-age">Возраст:</span>          <span id="age" class="t vl vl-age">—</span>
+    <span class="t lb lb-org">Организация:</span>      <span id="org" class="t vl vl-org none"></span>
+    <span class="t lb lb-fac">Фракция:</span>          <span id="faction" class="t vl vl-fac">—</span>
+    <span class="t lb lb-date">Дата создания:</span>   <span id="created" class="t vl vl-date">—</span>
+    <span class="t lb lb-cash">Наличные деньги:</span> <span id="cash" class="t vl vl-cash">$0</span>
+    <span class="t lb lb-bank">Деньги в банке:</span>  <span id="bank" class="t vl vl-bank">$0</span>
+  </div>
+
+  <!-- низ по центру -->
+  <div class="a bc">
+    <button id="playBtn" class="play"><span id="playTxt" class="play-t">Начать игру</span></button>
+
+    <div class="slots">
+      <button id="prevBtn" class="arrow" title="Назад (A)">
+        <svg viewBox="0 0 8 12" width="8" height="12"><path d="M6.4 1.2 1.8 6l4.6 4.8" fill="none" stroke="#a9a9aa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div id="slotList" class="slot-list"></div>
+      <button id="nextBtn" class="arrow" title="Вперёд (D)">
+        <svg viewBox="0 0 8 12" width="8" height="12"><path d="M1.6 1.2 6.2 6 1.6 10.8" fill="none" stroke="#a9a9aa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- низ слева: подсказки -->
+  <div class="a bl">
+    <div class="hint h1"><span class="keys"><kbd id="kA">A</kbd><kbd id="kD">D</kbd></span><em>Смена персонажа</em></div>
+    <div class="hint h2"><kbd class="k-enter">ENTER</kbd><em>Выбрать персонажа</em></div>
+    <div class="hint h3"><kbd class="k-esc">ESC</kbd><em>Вернуться назад</em></div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+
+  <!-- Модалка создания -->
+  <div id="createModal" class="modal hidden">
+    <div class="modal-box">
+      <h3>Выбор пола</h3>
+      <div class="row2">
+        <div class="field"><label>Пол</label>
+          <div class="seg">
+            <button id="genM" class="on" type="button">Мужской</button>
+            <button id="genF" type="button">Женский</button>
+          </div>
+        </div>
+      </div>
+      <div id="createErr" class="form-err"></div>
+      <div class="modal-btns">
+        <button id="createNo" class="btn ghost">Отмена</button>
+        <button id="createYes" class="btn primary">Создать</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

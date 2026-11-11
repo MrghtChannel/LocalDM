@@ -1,0 +1,50 @@
+.game-hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  color: #fff;
+  font-family: Geometria, "Segoe UI", sans-serif;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 55%);
+}
+
+.game-hud__brand,
+.game-hud__meta,
+.game-hud__clock {
+  position: absolute;
+  right: 23px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.game-hud__brand {
+  top: 16px;
+  font-size: 17px;
+  letter-spacing: .01em;
+}
+
+.game-hud__brand-strong { font-weight: 700; }
+.game-hud__star { margin-right: 5px; color: #ff9d00; font-size: 19px; }
+
+.game-hud__meta {
+  top: 42px;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: 12px;
+}
+
+.game-hud__server,
+.game-hud__online { font-weight: 700; }
+.game-hud__id { color: rgb(255 255 255 / 88%); }
+
+.game-hud__clock {
+  top: 64px;
+  display: flex;
+  gap: 8px;
+  color: rgb(255 255 255 / 82%);
+  font-size: 11px;
+}
+
+@media (max-width: 800px) {
+  .game-hud__brand, .game-hud__meta, .game-hud__clock { right: 14px; }
+}

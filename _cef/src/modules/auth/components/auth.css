@@ -1,0 +1,267 @@
+@font-face {
+  font-family: "Geometria";
+  src: url("@/assets/fonts/Geometria.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geometria";
+  src: url("@/assets/fonts/Geometria-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geometria";
+  src: url("@/assets/fonts/Geometria-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geometria";
+  src: url("@/assets/fonts/Geometria-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.accounts-auth,
+.accounts-auth * {
+  box-sizing: border-box;
+}
+
+.accounts-auth {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: #fff;
+  background-color: #1b1e22;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: "Geometria", sans-serif;
+  user-select: none;
+}
+
+.accounts-auth__gradients {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.accounts-auth__figure {
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: 100%;
+  max-width: 60vw;
+  object-fit: contain;
+  object-position: bottom left;
+  pointer-events: none;
+}
+
+.accounts-auth .auth-form-block {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 5%;
+  width: min(420px, 90vw);
+  transform: translateY(-50%);
+}
+
+.accounts-auth__header {
+  position: relative;
+  height: 100px;
+}
+
+.accounts-auth__logo {
+  display: block;
+  width: auto;
+  height: 100px;
+  object-fit: contain;
+}
+
+.accounts-auth__server-name {
+  position: absolute;
+  top: 30px;
+  left: 190px;
+  white-space: nowrap;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.accounts-auth .menu-text {
+  color: #fff;
+  font-family: "Geometria", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.accounts-auth .menu-text.f-l {
+  font-weight: 300;
+}
+
+.accounts-auth__tabs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.accounts-auth .accounts-auth__tab {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1.35;
+  transition: color 160ms ease;
+}
+
+.accounts-auth .accounts-auth__tab:hover,
+.accounts-auth .accounts-auth__tab.is-active {
+  color: #fff;
+}
+
+.accounts-auth__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.accounts-auth .accounts-auth__field {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  padding: 15px;
+  border: 0;
+  border-radius: 25px;
+  background: rgba(76, 76, 76, 0.25);
+}
+
+.accounts-auth .auth-input-ico {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+  fill: url(#authIcoGrad2);
+}
+
+.accounts-auth .menu-input {
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+  font-family: "Geometria", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  user-select: text;
+}
+
+.accounts-auth .menu-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
+.accounts-auth .menu-input:disabled {
+  opacity: 0.65;
+}
+
+.accounts-auth .menu-btn {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 24px;
+  border: 0;
+  outline: 0;
+  background: linear-gradient(0deg, #252c34 0%, #39424e 100%);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.41), inset 0 2px 3px rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  font-family: "Geometria", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.accounts-auth .auth-btn {
+  border-radius: 25px;
+  background-image: linear-gradient(45deg, #fe8926 0%, #ffc339 51%, #fe8926 100%);
+  background-size: 200% auto;
+  box-shadow: none;
+  transition: background-position 0.5s ease, opacity 0.2s ease;
+}
+
+.accounts-auth .auth-btn:hover:not(:disabled) {
+  background-position: right center;
+}
+
+.accounts-auth .menu-btn:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.accounts-auth__error {
+  margin-top: 12px;
+  color: #fff;
+  font-family: "Geometria", sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+  text-shadow: 0 1px 3px #000;
+}
+
+.accounts-auth .mt-5 {
+  margin-top: 5px;
+}
+
+.accounts-auth .mt-20 {
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 1300px) {
+  .accounts-auth .auth-form-block {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .accounts-auth {
+    background-position: 38% center;
+    background-size: cover;
+  }
+
+  .accounts-auth__figure {
+    max-width: 45vw;
+    opacity: 0.8;
+  }
+
+  .accounts-auth .auth-form-block {
+    right: 5%;
+    width: min(420px, 90vw);
+  }
+
+  .accounts-auth .accounts-auth__tab {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+}

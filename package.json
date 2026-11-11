@@ -1,0 +1,23 @@
+{
+  "name": "rage-gm",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:client": "cd _client && npm run dev",
+    "dev:server": "cd _server && npm run dev",
+    "dev:cef": "cd _cef && npm run dev",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\" \"npm run dev:cef\" --names client,server,cef --prefix-colors red,green,blue",
+    "build:client": "cd _client && npm run build",
+    "build:server": "cd _server && npm run build",
+    "build:cef": "cd _cef && npm run build",
+    "build": "npm run build:client && npm run build:server && npm run build:cef"
+  },
+  "author": "meolex",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "vite": "^8.3.7"
+  }
+}
