@@ -20,12 +20,12 @@ export const NpcDialog = () => {
       hide: () => setDialog(null),
     };
 
-    window.rentConfirmDialog = api;
+    window.npcDialog = api;
     rpc.register("npc-dialog:show", api.show);
     rpc.register("npc-dialog:hide", api.hide);
 
     return () => {
-      if (window.rentConfirmDialog === api) delete window.rentConfirmDialog;
+      if (window.npcDialog === api) delete window.npcDialog;
       rpc.unregister("npc-dialog:show");
       rpc.unregister("npc-dialog:hide");
     };
@@ -35,6 +35,7 @@ export const NpcDialog = () => {
 
   return (
     <div className="npc-dialog-layer">
+      <div className="npc-dialog__gradient" />
       <section className="npc-dialog" role="dialog" aria-live="polite" aria-label={dialog.actor || "Диалог"}>
         {dialog.actor && <div className="npc-dialog__actor">{dialog.actor}</div>}
         <div className="npc-dialog__text">{dialog.text}</div>
@@ -50,7 +51,7 @@ export const NpcDialog = () => {
                   setDialog(null);
                 }}
               >
-                {button.label}
+                <span>{button.label}</span>
               </button>
             ))}
           </div>

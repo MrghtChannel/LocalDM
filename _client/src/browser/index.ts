@@ -5,7 +5,6 @@ export const ROUTES = {
   HUD: "/hud",
   CREATE_CHARACTER: "/create-character",
   SPAWN_SELECT: "/spawn-select",
-  RENTCAR: "/rentcar",
 };
 
 export type NpcDialogPayload = {

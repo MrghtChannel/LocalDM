@@ -1,285 +1,218 @@
 {
-  "id": "6853fbe4-bec4-4202-a6f0-ea8773c40213",
-  "prevId": "8a3ed76d-de1e-4d9a-8b78-9f327d5f576d",
-  "version": "7",
-  "dialect": "postgresql",
+  "version": "5",
+  "dialect": "mysql",
+  "id": "53db496f-573b-4f63-adf6-7b8cc2502a73",
+  "prevId": "a8bddb5c-03eb-4a54-b86c-9c93cd7b4f06",
   "tables": {
-    "public.player_appearance": {
-      "name": "player_appearance",
-      "schema": "",
+    "characters": {
+      "name": "characters",
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
-          "primaryKey": true,
+          "type": "int",
+          "primaryKey": false,
           "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "player_appearance_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "autoincrement": true
         },
         "player_id": {
           "name": "player_id",
-          "type": "integer",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "sex": {
-          "name": "sex",
-          "type": "sex",
-          "typeSchema": "public",
+        "name": {
+          "name": "name",
+          "type": "varchar(32)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "mother": {
-          "name": "mother",
-          "type": "integer",
+        "surname": {
+          "name": "surname",
+          "type": "varchar(32)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Персонаж'"
         },
-        "father": {
-          "name": "father",
-          "type": "integer",
+        "age": {
+          "name": "age",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 18
         },
-        "similarity": {
-          "name": "similarity",
-          "type": "real",
+        "position": {
+          "name": "position",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "autoincrement": false
         },
-        "skin_tone": {
-          "name": "skin_tone",
-          "type": "real",
+        "level": {
+          "name": "level",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
         },
-        "blemishes": {
-          "name": "blemishes",
-          "type": "integer",
+        "experience": {
+          "name": "experience",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
-        "eyebrows": {
-          "name": "eyebrows",
-          "type": "integer",
+        "cash": {
+          "name": "cash",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
-        "ageing": {
-          "name": "ageing",
-          "type": "integer",
+        "bank": {
+          "name": "bank",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
-        "makeup": {
-          "name": "makeup",
-          "type": "integer",
+        "faction": {
+          "name": "faction",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "autoincrement": false
         },
-        "complexion": {
-          "name": "complexion",
-          "type": "integer",
+        "fraction": {
+          "name": "fraction",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
-        "sun_damage": {
-          "name": "sun_damage",
-          "type": "integer",
+        "money": {
+          "name": "money",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1000
         },
-        "lipstick": {
-          "name": "lipstick",
-          "type": "integer",
+        "inventory": {
+          "name": "inventory",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "('[\"weapon_revolver\"]')"
         },
-        "moles_freckles": {
-          "name": "moles_freckles",
-          "type": "integer",
+        "fastSlots": {
+          "name": "fastSlots",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "('[{\"id\":null,\"slot\":0},{\"id\":null,\"slot\":1},{\"id\":null,\"slot\":2}]')"
         },
-        "nose_width": {
-          "name": "nose_width",
-          "type": "real",
+        "clothes": {
+          "name": "clothes",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "autoincrement": false
         },
-        "nose_height": {
-          "name": "nose_height",
-          "type": "real",
+        "buyclothes": {
+          "name": "buyclothes",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "('[]')"
         },
-        "nose_length": {
-          "name": "nose_length",
-          "type": "real",
+        "cars": {
+          "name": "cars",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "('[{\"model\":\"neon\",\"name\":\"neon\",\"price\":1}]')"
         },
-        "nose_bridge": {
-          "name": "nose_bridge",
-          "type": "real",
+        "kills": {
+          "name": "kills",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
-        "nose_tip": {
-          "name": "nose_tip",
-          "type": "real",
+        "deaths": {
+          "name": "deaths",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
-        "nose_bridge_shift": {
-          "name": "nose_bridge_shift",
-          "type": "real",
+        "last_fraction_change": {
+          "name": "last_fraction_change",
+          "type": "bigint",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "autoincrement": false
         },
-        "brow_height": {
-          "name": "brow_height",
-          "type": "real",
+        "features": {
+          "name": "features",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "autoincrement": false
         },
-        "brow_width": {
-          "name": "brow_width",
-          "type": "real",
+        "secondarySlots": {
+          "name": "secondarySlots",
+          "type": "json",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "('[{\"id\":null,\"slot\":0},{\"id\":null,\"slot\":1}]')"
         },
-        "cheekbone_height": {
-          "name": "cheekbone_height",
-          "type": "real",
+        "chip": {
+          "name": "chip",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
-        },
-        "cheekbone_width": {
-          "name": "cheekbone_width",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "cheeks_width": {
-          "name": "cheeks_width",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "eyes": {
-          "name": "eyes",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "lips": {
-          "name": "lips",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "jaw_width": {
-          "name": "jaw_width",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "jaw_height": {
-          "name": "jaw_height",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "chin_length": {
-          "name": "chin_length",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "chin_position": {
-          "name": "chin_position",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "chin_width": {
-          "name": "chin_width",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "chin_shape": {
-          "name": "chin_shape",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "neck_width": {
-          "name": "neck_width",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "hair_style": {
-          "name": "hair_style",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "facial_hair": {
-          "name": "facial_hair",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "eye_color": {
-          "name": "eye_color",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "hair_color": {
-          "name": "hair_color",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "beard_color": {
-          "name": "beard_color",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "autoincrement": false,
+          "default": "(now())"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "player_appearance_player_id_players_id_fk": {
-          "name": "player_appearance_player_id_players_id_fk",
-          "tableFrom": "player_appearance",
+        "characters_player_id_players_id_fk": {
+          "name": "characters_player_id_players_id_fk",
+          "tableFrom": "characters",
           "tableTo": "players",
           "columnsFrom": [
             "player_id"
@@ -291,109 +224,421 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "player_appearance_player_id_unique": {
-          "name": "player_appearance_player_id_unique",
-          "nullsNotDistinct": false,
+      "compositePrimaryKeys": {
+        "characters_id": {
+          "name": "characters_id",
           "columns": [
-            "player_id"
+            "id"
           ]
         }
       },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "uniqueConstraints": {},
+      "checkConstraint": {}
     },
-    "public.players": {
-      "name": "players",
-      "schema": "",
+    "player_appearance": {
+      "name": "player_appearance",
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
-          "primaryKey": true,
+          "type": "int",
+          "primaryKey": false,
           "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "players_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "autoincrement": true
         },
-        "email": {
-          "name": "email",
-          "type": "varchar(255)",
+        "character_id": {
+          "name": "character_id",
+          "type": "int",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "passwordHash": {
-          "name": "passwordHash",
-          "type": "varchar(255)",
+        "sex": {
+          "name": "sex",
+          "type": "enum('male','female')",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "position": {
-          "name": "position",
-          "type": "jsonb",
+        "mother": {
+          "name": "mother",
+          "type": "int",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "autoincrement": false
+        },
+        "father": {
+          "name": "father",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "similarity": {
+          "name": "similarity",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "skin_tone": {
+          "name": "skin_tone",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "blemishes": {
+          "name": "blemishes",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyebrows": {
+          "name": "eyebrows",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ageing": {
+          "name": "ageing",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "makeup": {
+          "name": "makeup",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "complexion": {
+          "name": "complexion",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sun_damage": {
+          "name": "sun_damage",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "lipstick": {
+          "name": "lipstick",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "moles_freckles": {
+          "name": "moles_freckles",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nose_width": {
+          "name": "nose_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nose_height": {
+          "name": "nose_height",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nose_length": {
+          "name": "nose_length",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nose_bridge": {
+          "name": "nose_bridge",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nose_tip": {
+          "name": "nose_tip",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nose_bridge_shift": {
+          "name": "nose_bridge_shift",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "brow_height": {
+          "name": "brow_height",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "brow_width": {
+          "name": "brow_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cheekbone_height": {
+          "name": "cheekbone_height",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cheekbone_width": {
+          "name": "cheekbone_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "cheeks_width": {
+          "name": "cheeks_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eyes": {
+          "name": "eyes",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "lips": {
+          "name": "lips",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "jaw_width": {
+          "name": "jaw_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "jaw_height": {
+          "name": "jaw_height",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "chin_length": {
+          "name": "chin_length",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "chin_position": {
+          "name": "chin_position",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "chin_width": {
+          "name": "chin_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "chin_shape": {
+          "name": "chin_shape",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "neck_width": {
+          "name": "neck_width",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hair_style": {
+          "name": "hair_style",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "facial_hair": {
+          "name": "facial_hair",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eye_color": {
+          "name": "eye_color",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hair_color": {
+          "name": "hair_color",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "beard_color": {
+          "name": "beard_color",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "autoincrement": false,
+          "default": "(now())"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "player_appearance_character_id_characters_id_fk": {
+          "name": "player_appearance_character_id_characters_id_fk",
+          "tableFrom": "player_appearance",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "player_appearance_id": {
+          "name": "player_appearance_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "player_appearance_character_id_unique": {
+          "name": "player_appearance_character_id_unique",
+          "columns": [
+            "character_id"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "players": {
+      "name": "players",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "passwordHash": {
+          "name": "passwordHash",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "players_id": {
+          "name": "players_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
       "uniqueConstraints": {
         "players_email_unique": {
           "name": "players_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
           ]
         }
       },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraint": {}
     }
   },
-  "enums": {
-    "public.sex": {
-      "name": "sex",
-      "schema": "public",
-      "values": [
-        "male",
-        "female"
-      ]
-    }
-  },
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
   "views": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
   }
 }

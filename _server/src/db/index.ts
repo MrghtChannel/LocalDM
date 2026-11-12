@@ -1,7 +1,7 @@
-import { drizzle } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/mysql2";
 import dotenv from "dotenv";
 import path from "path";
-import { Pool } from "pg";
+import mysql from "mysql2/promise";
 
 import * as schema from "./schema";
 
@@ -14,9 +14,9 @@ if (!databaseUrl) {
   throw new Error("DATABASE_URL is missing. Set it in _server/.env.");
 }
 
-const pool = new Pool({ connectionString: databaseUrl, connectionTimeoutMillis: 5000 });
+const pool = mysql.createPool(databaseUrl);
 
-export const $db = drizzle(pool, { schema });
+export const $db = drizzle(pool, { schema, mode: "default" });
 
 export async function checkDatabaseConnection() {
   try {

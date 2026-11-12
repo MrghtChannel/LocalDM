@@ -16,13 +16,14 @@ export const Character = ({ setStep }: { setStep: (step: Section) => void }) => 
   const form = useFormContext<FormSchema>();
 
   const handleRandomize = () => {
+    const currentHeadBlend = form.getValues("headBlendData");
     const randomFather = randomInt(0, 21);
     const randomMother = randomInt(22, 41);
 
     const randomSimilarity = parseFloat(Math.random().toFixed(1));
     const randomSkinTone = parseFloat(Math.random().toFixed(1));
 
-    form.reset({ ...form.getValues(), headBlendData: { father: randomFather, mother: randomMother, similarity: randomSimilarity, skinTone: randomSkinTone } });
+    form.reset({ ...form.getValues(), headBlendData: { ...currentHeadBlend, father: randomFather, mother: randomMother, similarity: randomSimilarity, skinTone: randomSkinTone } });
   };
 
   return (

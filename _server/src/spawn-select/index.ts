@@ -41,7 +41,7 @@ class SpawnSelect {
       {
         key: "default",
         label: "Стандартный спавн",
-        spawnName: "АРЕНДА ТРАНСПОРТА",
+        spawnName: "СТАНДАРТНЫЙ СПАВН",
         spawnType: "def",
         ...defaultPosition,
       },

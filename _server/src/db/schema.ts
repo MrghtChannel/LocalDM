@@ -1,41 +1,40 @@
 import { relations, sql } from "drizzle-orm";
-import { bigint, integer, jsonb, pgEnum, pgTable, real, timestamp, varchar, text } from "drizzle-orm/pg-core";
+import { bigint, int, json, mysqlEnum, mysqlTable, real, timestamp, varchar, text } from "drizzle-orm/mysql-core";
 
-export const playersTable = pgTable("players", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+export const playersTable = mysqlTable("players", {
+  id: int().primaryKey().autoincrement(),
   email: varchar({ length: 255 }).notNull().unique(),
   passwordHash: varchar({ length: 255 }).notNull(),
-  position: jsonb("position").$type<{ x: number; y: number; z: number; heading: number }>(),
 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-export const charactersTable = pgTable("characters", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  playerId: integer("player_id").notNull().references(() => playersTable.id, { onDelete: "cascade" }),
+export const charactersTable = mysqlTable("characters", {
+  id: int().primaryKey().autoincrement(),
+  playerId: int("player_id").notNull().references(() => playersTable.id, { onDelete: "cascade" }),
   name: varchar({ length: 32 }).notNull(),
   surname: varchar({ length: 32 }).notNull().default("Персонаж"),
-  age: integer().notNull().default(18),
-  position: jsonb("position").$type<{ x: number; y: number; z: number; heading: number }>(),
-  level: integer().notNull().default(1),
-  experience: integer().notNull().default(0),
-  cash: integer().notNull().default(0),
-  bank: integer().notNull().default(0),
+  age: int().notNull().default(18),
+  position: json("position").$type<{ x: number; y: number; z: number; heading: number }>(),
+  level: int().notNull().default(1),
+  experience: int().notNull().default(0),
+  cash: int().notNull().default(0),
+  bank: int().notNull().default(0),
   faction: text(),
-  fraction: integer("fraction").notNull().default(0),
+  fraction: int("fraction").notNull().default(0),
   money: bigint("money", { mode: "number" }).notNull().default(1000),
-  inventory: jsonb("inventory").$type<string[]>().notNull().default(sql`'["weapon_revolver"]'::jsonb`),
-  fastSlots: jsonb("fastSlots").$type<{ id: number | null; slot: number }[]>().notNull().default(sql`'[{"id":null,"slot":0},{"id":null,"slot":1},{"id":null,"slot":2}]'::jsonb`),
-  clothes: jsonb("clothes"),
-  buyclothes: jsonb("buyclothes").$type<unknown[]>().notNull().default(sql`'[]'::jsonb`),
-  cars: jsonb("cars").$type<unknown[]>().notNull().default(sql`'[{"model":"neon","name":"neon","price":1}]'::jsonb`),
-  kills: integer("kills").notNull().default(0),
-  deaths: integer("deaths").notNull().default(0),
+  inventory: json("inventory").$type<string[]>().notNull().default(sql`('["weapon_revolver"]')`),
+  fastSlots: json("fastSlots").$type<{ id: number | null; slot: number }[]>().notNull().default(sql`('[{"id":null,"slot":0},{"id":null,"slot":1},{"id":null,"slot":2}]')`),
+  clothes: json("clothes"),
+  buyclothes: json("buyclothes").$type<unknown[]>().notNull().default(sql`('[]')`),
+  cars: json("cars").$type<unknown[]>().notNull().default(sql`('[{"model":"neon","name":"neon","price":1}]')`),
+  kills: int("kills").notNull().default(0),
+  deaths: int("deaths").notNull().default(0),
   lastFractionChange: bigint("last_fraction_change", { mode: "number" }),
-  features: jsonb("features"),
-  secondarySlots: jsonb("secondarySlots").$type<{ id: number | null; slot: number }[]>().notNull().default(sql`'[{"id":null,"slot":0},{"id":null,"slot":1}]'::jsonb`),
-  chip: integer("chip").notNull().default(0),
+  features: json("features"),
+  secondarySlots: json("secondarySlots").$type<{ id: number | null; slot: number }[]>().notNull().default(sql`('[{"id":null,"slot":0},{"id":null,"slot":1}]')`),
+  chip: int("chip").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -46,31 +45,29 @@ export const charactersRelations = relations(charactersTable, ({ one }) => ({
   appearance: one(playerApperanceTable),
 }));
 
-export const sexEnum = pgEnum("sex", ["male", "female"]);
-
-export const playerApperanceTable = pgTable("player_appearance", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  characterId: integer("character_id")
+export const playerApperanceTable = mysqlTable("player_appearance", {
+  id: int().primaryKey().autoincrement(),
+  characterId: int("character_id")
     .notNull()
     .references(() => charactersTable.id, { onDelete: "cascade" })
     .unique(),
 
   // Head blend
-  sex: sexEnum("sex").notNull(),
-  mother: integer("mother").notNull(),
-  father: integer("father").notNull(),
+  sex: mysqlEnum("sex", ["male", "female"]).notNull(),
+  mother: int("mother").notNull(),
+  father: int("father").notNull(),
   similarity: real("similarity").notNull(),
   skinTone: real("skin_tone").notNull(),
 
   // Head overlay
-  blemishes: integer("blemishes").notNull(),
-  eyebrows: integer("eyebrows").notNull(),
-  ageing: integer("ageing").notNull(),
-  makeup: integer("makeup").notNull(),
-  complexion: integer("complexion").notNull(),
-  sunDamage: integer("sun_damage").notNull(),
-  lipstick: integer("lipstick").notNull(),
-  molesFreckles: integer("moles_freckles").notNull(),
+  blemishes: int("blemishes").notNull(),
+  eyebrows: int("eyebrows").notNull(),
+  ageing: int("ageing").notNull(),
+  makeup: int("makeup").notNull(),
+  complexion: int("complexion").notNull(),
+  sunDamage: int("sun_damage").notNull(),
+  lipstick: int("lipstick").notNull(),
+  molesFreckles: int("moles_freckles").notNull(),
 
   // Face features
   noseWidth: real("nose_width").notNull(),
@@ -95,11 +92,11 @@ export const playerApperanceTable = pgTable("player_appearance", {
   neckWidth: real("neck_width").notNull(),
 
   // Colors
-  hairStyle: integer("hair_style").notNull(),
-  facialHair: integer("facial_hair").notNull(),
-  eyeColor: integer("eye_color").notNull(),
-  hairColor: integer("hair_color").notNull(),
-  beardColor: integer("beard_color").notNull(),
+  hairStyle: int("hair_style").notNull(),
+  facialHair: int("facial_hair").notNull(),
+  eyeColor: int("eye_color").notNull(),
+  hairColor: int("hair_color").notNull(),
+  beardColor: int("beard_color").notNull(),
 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),

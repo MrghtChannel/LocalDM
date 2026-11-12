@@ -5,7 +5,6 @@ import { Auth } from "@/modules/auth/components";
 import { CreateCharacter } from "@/modules/create-character/components";
 import { Hud } from "@/modules/hud/components";
 import SpawnSelect from "@/modules/spawn-select/components";
-import { RentCar } from "@/modules/rentcar/components";
 
 export const Routing = () => {
   return (
@@ -16,7 +15,6 @@ export const Routing = () => {
           <Route path="/hud" element={<Hud />} />
           <Route path="/create-character" element={<CreateCharacter />} />
           <Route path="/spawn-select" element={<SpawnSelect />} />
-          <Route path="/rentcar" element={<RentCar />} />
         </Route>
       </Routes>
     </HashRouter>

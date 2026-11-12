@@ -1,7 +1,7 @@
 import rpc from "rage-rpc";
 import { eq } from "drizzle-orm";
 import { $db } from "@/db";
-import { charactersTable } from "@/db/schema";
+import { charactersTable, playerApperanceTable } from "@/db/schema";
 import { $player } from "@/player";
 import { $spawnSelect } from "@/spawn-select";
 import { $createCharacter } from "@/create-character";
@@ -16,7 +16,10 @@ class CharacterSelect {
 
   private getOwned = async (player: PlayerMp, id: number) => {
     if (!player._id || !Number.isInteger(id)) return null;
-    return $db.query.charactersTable.findFirst({ where: eq(charactersTable.id, id), with: { appearance: true } }).then((c) => c?.playerId === player._id ? c : null);
+    const character = await $db.query.charactersTable.findFirst({ where: eq(charactersTable.id, id) });
+    if (!character || character.playerId !== player._id) return null;
+    const appearance = await $db.query.playerApperanceTable.findFirst({ where: eq(playerApperanceTable.characterId, id) });
+    return { ...character, appearance: appearance ?? null };
   };
 
   private play = async (id: number, { player }: RPCEvent) => {

@@ -3,12 +3,11 @@ import { useLocation } from "react-router";
 import { useForm, useWatch } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronRight, Shirt, Sparkles, UserRound, ScanFace, Palette } from "lucide-react";
 import rpc from "rage-rpc";
 
 import { useCreateCharacter } from "../api/mutations/create-character";
@@ -18,18 +17,21 @@ import { Character } from "./sections/character";
 import { Clothes } from "./sections/clothes";
 import { Colors } from "./sections/colors";
 import { Features } from "./sections/features";
+import "./create-character.css";
 
 export { zodResolver } from "@hookform/resolvers/zod";
 
 export type Section = "character" | "appearance" | "colors" | "features" | "clothes";
 
 const sections: { label: string; value: Section }[] = [
-  { label: "Персонаж", value: "character" },
-  { label: "Внешний вид", value: "appearance" },
-  { label: "Цвет и волосы", value: "colors" },
-  { label: "Особенности", value: "features" },
+  { label: "Генетика", value: "character" },
+  { label: "Кожа", value: "appearance" },
+  { label: "Волосы и цвет", value: "colors" },
+  { label: "Черты лица", value: "features" },
   { label: "Одежда", value: "clothes" },
 ];
+
+const sectionIcons = [Sparkles, UserRound, Palette, ScanFace, Shirt];
 
 export const CreateCharacter = () => {
   const { state } = useLocation();
@@ -137,6 +139,9 @@ export const CreateCharacter = () => {
   useEffect(() => {
     if (JSON.stringify(headBlendData) !== JSON.stringify(prev.current.headBlendData)) {
       rpc.callClient("create-character:update-head-blend", headBlendData);
+      if (headBlendData?.sex !== prev.current.headBlendData?.sex) {
+        rpc.callClient("create-character:update-clothes", clothes);
+      }
     }
 
     if (JSON.stringify(headOverlay) !== JSON.stringify(prev.current.headOverlay)) {
@@ -167,71 +172,82 @@ export const CreateCharacter = () => {
   }, [currentSection]);
 
   return (
-    <div className="relative h-screen w-full">
+    <div className="character-creator">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="h-full w-full">
-          <Card className="absolute left-2 top-1/4 flex w-2/6">
-            <Card className="w-2/3 rounded-r-none">
-              <CardHeader className="w-1/3">
-                <CardTitle className="text-nowrap text-center">Создание Персонажа</CardTitle>
-              </CardHeader>
-              <Separator />
-              <CardContent>
-                <div className="space-y-2">
-                  <FormField
-                    name="name"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs text-muted-foreground">Имя</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Joe Doe" {...field} className="placeholder:text-xs" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    name="age"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-xs text-muted-foreground">Возраст</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} onChange={(e) => field.onChange(e.target.valueAsNumber)} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <Separator />
-                <div className="mt-4 flex flex-col space-y-2">
-                  {sections.map((section) => (
-                    <Button
-                      key={section.value}
-                      type="button"
-                      className="justify-start"
-                      disabled={false}
-                      onClick={() => setCurrentSection(section.value)}
-                      variant={section.value === currentSection ? "secondary" : "ghost"}
-                    >
-                      {section.label}
-                    </Button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-            {renderSection()}
-          </Card>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="character-creator__layout">
+          <aside className="character-creator__sidebar">
+            <div className="character-creator__brand">
+              <span className="character-creator__brand-icon"><Sparkles size={19} /></span>
+              <div><span>LOS SANTOS</span><strong>Редактор персонажа</strong></div>
+            </div>
+
+            <div className="character-creator__identity">
+              <div className="character-creator__eyebrow">НОВЫЙ ПЕРСОНАЖ</div>
+              <FormField
+                name="name"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Имя и фамилия</FormLabel>
+                    <FormControl><Input placeholder="Например, Ray Washington" {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="age"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Возраст</FormLabel>
+                    <FormControl><Input type="number" min={18} max={90} {...field} onChange={(e) => field.onChange(e.target.valueAsNumber)} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <nav className="character-creator__navigation" aria-label="Разделы редактора">
+              <div className="character-creator__eyebrow">ВНЕШНОСТЬ</div>
+              {sections.map((section, index) => {
+                const Icon = sectionIcons[index];
+                const active = section.value === currentSection;
+                return (
+                  <Button
+                    key={section.value}
+                    type="button"
+                    variant="ghost"
+                    className={`character-creator__nav-item${active ? " is-active" : ""}`}
+                    aria-current={active ? "step" : undefined}
+                    onClick={() => setCurrentSection(section.value)}
+                  >
+                    <Icon size={19} strokeWidth={1.8} />
+                    <span>{section.label}</span>
+                    {active && <ChevronRight className="character-creator__nav-arrow" size={16} />}
+                  </Button>
+                );
+              })}
+            </nav>
+
+            <div className="character-creator__progress">
+              <div className="character-creator__progress-label"><span>ШАГ {sections.findIndex((section) => section.value === currentSection) + 1}</span><span>ИЗ {sections.length}</span></div>
+              <div className="character-creator__progress-track"><span style={{ width: `${((sections.findIndex((section) => section.value === currentSection) + 1) / sections.length) * 100}%` }} /></div>
+            </div>
+          </aside>
+
+          <main className="character-creator__workspace">
+            <div className="character-creator__workspace-heading">
+              <div><span className="character-creator__eyebrow">НАСТРОЙКА ВНЕШНОСТИ</span><h1>{sections.find((section) => section.value === currentSection)?.label}</h1></div>
+              <div className="character-creator__rotation">
+                <span>ПОВОРОТ</span>
+                <Slider max={360} min={0} step={5} onValueChange={(value) => handleRotation(value[0])} />
+              </div>
+            </div>
+            <div className="character-creator__controls">{renderSection()}</div>
+            <div className="character-creator__tip"><span>ПОДСКАЗКА</span> Настройки внешности можно изменить в любой момент до создания персонажа.</div>
+          </main>
         </form>
       </Form>
-      <div className="absolute bottom-10 left-2/3 w-[250px]">
-        <div className="flex flex-col items-center gap-2 rounded-md bg-secondary p-4 text-white">
-          <span>Поворот персонажа</span>
-          <Slider max={360} min={0} step={5} onValueChange={(value) => handleRotation(value[0])} />
-        </div>
-      </div>
     </div>
   );
 };

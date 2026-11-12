@@ -101,20 +101,3 @@ kbd{display:grid;place-items:center;font-family:inherit;font-weight:700;color:#b
 .toast{position:absolute;left:50%;top:8.2rem;transform:translateX(-50%);z-index:60;padding:1.1rem 1.8rem;border-radius:0.8rem;background:#111213;border:0.1rem solid #383838;font-size:1.3rem;font-weight:500;max-width:48rem;text-align:center;animation:tin .2s ease-out}
 .toast.err{border-color:#ff5246;color:#ffb7b0;background:#312626}.toast.ok{border-color:#5fff9a;color:#5fff9a}
 @keyframes tin{from{opacity:0;transform:translate(-50%,-0.8rem)}to{opacity:1;transform:translate(-50%,0)}}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:50}
-.modal-box{width:40rem;background:#181818;border:0.1rem solid #383838;border-radius:1rem;padding:2.6rem;box-shadow:0 2rem 6rem rgba(0,0,0,.6);animation:pop .16s ease-out}
-@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
-.modal-box h3{font-size:1.9rem;font-weight:600;margin-bottom:1.6rem}
-.modal-box p{font-size:1.35rem;font-weight:400;line-height:1.6;color:#cfd0d2}.modal-box p b{color:#fff;font-weight:600}
-.modal-btns{display:flex;gap:1rem;margin-top:2.2rem}
-.btn{flex:1;height:4.2rem;border-radius:0.8rem;font-size:1.35rem;font-weight:700;transition:background .2s,color .2s}
-.btn.ghost{background:#292929}.btn.ghost:hover{background:#383838}
-.btn.danger{background:#312626;color:#ff5246}.btn.danger:hover{background:#ff5246;color:#fff}
-.btn.primary{background:var(--orange);color:#fff}.btn.primary:hover{background:var(--orange-hover)}
-.field{margin-bottom:1.3rem}.field label{display:block;font-size:1.15rem;font-weight:500;color:#858686;margin-bottom:0.7rem}
-.field input{width:100%;height:4.2rem;border-radius:0.8rem;padding:0 1.4rem;font-family:inherit;font-size:1.4rem;font-weight:600;color:#fff;background:#111213;border:0.1rem solid #383838;outline:none;-webkit-user-select:text;user-select:text;transition:border-color .2s}
-.field input:focus{border-color:var(--orange)}
-.row2{display:grid;grid-template-columns:1fr 1.5fr;gap:1.2rem}
-.seg{display:flex;height:4.2rem;border-radius:0.8rem;overflow:hidden;border:0.1rem solid #383838}
-.seg button{flex:1;font-size:1.25rem;font-weight:600;background:#111213;transition:background .2s}.seg button:hover{background:#292929}.seg button.on{background:var(--orange);color:#fff}
-.form-err{min-height:1.6rem;font-size:1.2rem;color:#ff5246;margin-top:-0.2rem}

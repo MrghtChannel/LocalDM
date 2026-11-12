@@ -2,6 +2,16 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  plugins: [
+    {
+      name: "rage-node-builtin-compat",
+      enforce: "pre",
+      resolveId(source) {
+        if (source.startsWith("node:")) return { id: source.slice("node:".length), external: true };
+        return null;
+      },
+    },
+  ],
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
@@ -16,8 +26,6 @@ export default defineConfig({
 
     rollupOptions: {
       external: (id) => {
-        if (id.startsWith("node:")) return true;
-
         const nodeBuiltins = [
           "path",
           "fs",
@@ -62,7 +70,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
-      "pg-native": path.resolve(__dirname, "src/pg-native-stub.cjs"),
     },
   },
 });

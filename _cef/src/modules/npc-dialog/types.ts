@@ -7,6 +7,9 @@ export type NpcDialogData = {
   actor?: string;
   text: string;
   buttons?: NpcDialogButton[];
+  btnVerticalMode?: boolean;
+  textAlignLeft?: boolean;
+  widthLarge?: boolean;
 };
 
 export type NpcDialogApi = {
@@ -16,6 +19,6 @@ export type NpcDialogApi = {
 
 declare global {
   interface Window {
-    rentConfirmDialog?: NpcDialogApi;
+    npcDialog?: NpcDialogApi;
   }
 }

@@ -1,40 +1,19 @@
 {
   "version": "7",
-  "dialect": "postgresql",
+  "dialect": "mysql",
   "entries": [
     {
       "idx": 0,
-      "version": "7",
-      "when": 1774195270971,
-      "tag": "0000_flawless_venus",
+      "version": "5",
+      "when": 1794432919376,
+      "tag": "0000_mariadb_initial",
       "breakpoints": true
     },
     {
       "idx": 1,
-      "version": "7",
-      "when": 1794311853950,
-      "tag": "0001_brown_santa_claus",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1794389831666,
-      "tag": "0002_account_characters",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1794390464921,
-      "tag": "0003_character_progress",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1794390568576,
-      "tag": "0004_character_identity_fields",
+      "version": "5",
+      "when": 1794436230957,
+      "tag": "0001_familiar_vapor",
       "breakpoints": true
     }
   ]

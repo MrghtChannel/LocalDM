@@ -33,12 +33,16 @@ class CreateCharacter {
         await tx.execute(sql`SELECT id FROM players WHERE id = ${player._id} FOR UPDATE`);
         const existing = await tx.select({ id: charactersTable.id }).from(charactersTable).where(eq(charactersTable.playerId, player._id));
         if (existing.length >= 3) return null;
-        const [character] = await tx.insert(charactersTable).values({ playerId: player._id, name: details.name, surname: details.surname, age: details.age }).returning();
-        if (!character) throw new Error("Character insert failed");
-        const [appearance] = await tx.insert(playerApperanceTable).values({
-          ...data.headBlendData, sex: pending?.sex ?? data.headBlendData.sex,
+        const [insertedCharacter] = await tx.insert(charactersTable).values({ playerId: player._id, name: details.name, surname: details.surname, age: details.age }).$returningId();
+        if (!insertedCharacter) throw new Error("Character insert failed");
+        const [character] = await tx.select().from(charactersTable).where(eq(charactersTable.id, insertedCharacter.id));
+        const [insertedAppearance] = await tx.insert(playerApperanceTable).values({
+          ...data.headBlendData,
           ...data.headOverlay, ...data.faceFeature, ...data.colors, characterId: character.id,
-        }).returning();
+        }).$returningId();
+        const [appearance] = insertedAppearance
+          ? await tx.select().from(playerApperanceTable).where(eq(playerApperanceTable.id, insertedAppearance.id))
+          : [];
         if (!appearance) throw new Error("Appearance insert failed");
         return { character, appearance };
       });

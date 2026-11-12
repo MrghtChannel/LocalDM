@@ -41,7 +41,8 @@ export const $authLobby = {
     const position = resolvePosition(player);
     // Spawn directly at the lobby slot so the initial world spawn cannot leave
     // the player falling while the authentication UI loads.
-    player.spawn(position, HEADING);
+    player.spawn(position);
+    player.heading = HEADING;
     player.health = 100;
     player.armour = 0;
     rpc.callClient(player, "auth-lobby:apply", {

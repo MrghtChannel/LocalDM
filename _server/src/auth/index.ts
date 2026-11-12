@@ -2,11 +2,11 @@ import rpc from "rage-rpc";
 
 import { $createCharacter } from "@/create-character";
 import { $db } from "@/db";
-import { charactersTable, playersTable } from "@/db/schema";
+import { charactersTable, playerApperanceTable, playersTable } from "@/db/schema";
 import { $player } from "@/player";
 import { $spawnSelect } from "@/spawn-select";
 import { compare, hash } from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 
 class Auth {
   constructor() {
@@ -34,8 +34,14 @@ class Auth {
 
       player._id = dbPlayer.id;
       player.dimension = player.id + 1000;
-      player.spawn(new mp.Vector3(-1704.908, -1087.971, 13.152), 48.5);
-      const chars = await $db.query.charactersTable.findMany({ where: eq(charactersTable.playerId, dbPlayer.id), with: { appearance: true } });
+      player.spawn(new mp.Vector3(-1704.908, -1087.971, 13.152));
+      player.heading = 48.5;
+      const characterRows = await $db.query.charactersTable.findMany({ where: eq(charactersTable.playerId, dbPlayer.id) });
+      const appearanceRows = characterRows.length
+        ? await $db.select().from(playerApperanceTable).where(inArray(playerApperanceTable.characterId, characterRows.map(({ id }) => id)))
+        : [];
+      const appearanceByCharacter = new Map(appearanceRows.map((appearance) => [appearance.characterId, appearance]));
+      const chars = characterRows.map((character) => ({ ...character, appearance: appearanceByCharacter.get(character.id) ?? null }));
       rpc.callClient(player, "auth:finish", false);
       if (chars.length === 0) {
         $createCharacter.start(player);
@@ -59,12 +65,14 @@ class Auth {
       if (isPlayerExist) return { error: "Пользователь с такой почтой уже существует!" };
 
       const passwordHash = await hash(data.password, 10);
-      const [newPlayer] = await $db.insert(playersTable).values({ email: data.email, passwordHash }).returning();
+      const [inserted] = await $db.insert(playersTable).values({ email: data.email, passwordHash }).$returningId();
+      const newPlayer = inserted ? await $db.query.playersTable.findFirst({ where: eq(playersTable.id, inserted.id) }) : undefined;
       if (!newPlayer) return { error: "Не удалось создать аккаунт. Попробуйте ещё раз." };
 
       player._id = newPlayer.id;
       player.dimension = player.id + 1000;
-      player.spawn(new mp.Vector3(-1704.908, -1087.971, 13.152), 48.5);
+      player.spawn(new mp.Vector3(-1704.908, -1087.971, 13.152));
+      player.heading = 48.5;
       rpc.callClient(player, "auth:finish", false);
       $createCharacter.start(player);
 

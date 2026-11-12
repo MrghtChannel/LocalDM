@@ -4,7 +4,7 @@ import "@/chat";
 import "@/create-character";
 import "@/spawn-select";
 import "@/hud";
-import "@/rentcar";
+import "@/npc";
 import "@/other/blips"
 
 import { checkDatabaseConnection } from "@/db";

@@ -39,7 +39,6 @@
   function total() { return Math.max(S.max, S.chars.length); }
   function cur() { return S.chars[S.idx] || null; }
   function fmt(n) { return String(Math.floor(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
-  function modalOpen() { return !$('createModal').classList.contains('hidden'); }
 
   var SILHOUETTE = '<svg viewBox="0 0 100 100" preserveAspectRatio="none"><use href="#sil" width="100" height="100"/></svg>';
   var GEM = '<svg width="11" height="10" style="color:#fff;--gem-cut:#367fd1"><use href="#gem"/></svg>';
@@ -159,9 +158,9 @@
   }
 
   function primary() {
-    if (S.locked || modalOpen()) { return; }
+    if (S.locked) { return; }
     var c = cur();
-    if (!c) { openCreate(); return; }
+    if (!c) { submitCreate(); return; }
     lock();
     emit('charselect:play', c.id);
   }
@@ -177,25 +176,9 @@
   }
 
   /* ---------- создание ---------- */
-  var gender = 1; // 1 — мужской, 0 — женский
-  function setGender(g) {
-    gender = g;
-    $('genM').classList.toggle('on', g === 1);
-    $('genF').classList.toggle('on', g === 0);
-  }
-  function openCreate() {
-    $('createErr').textContent = '';
-    setGender(1);
-    $('createModal').classList.remove('hidden');
-  }
-  function closeCreate() {
-    $('createModal').classList.add('hidden');
-    if (document.activeElement && document.activeElement.blur) { document.activeElement.blur(); }
-  }
   function submitCreate() {
     lock();
-    emit('charselect:create', JSON.stringify({ slot: S.idx, gender: gender }));
-    closeCreate();
+    emit('charselect:create', JSON.stringify({ slot: S.idx }));
   }
 
   /* ---------- события интерфейса ---------- */
@@ -207,30 +190,22 @@
       el = el.parentNode;
     }
   });
-  $('prevBtn').addEventListener('click', function () { if (!modalOpen()) { select(S.idx - 1); } });
-  $('nextBtn').addEventListener('click', function () { if (!modalOpen()) { select(S.idx + 1); } });
+  $('prevBtn').addEventListener('click', function () { select(S.idx - 1); });
+  $('nextBtn').addEventListener('click', function () { select(S.idx + 1); });
   $('playBtn').addEventListener('click', primary);
-  $('createNo').addEventListener('click', closeCreate);
-  $('createYes').addEventListener('click', submitCreate);
-  $('genM').addEventListener('click', function () { setGender(1); });
-  $('genF').addEventListener('click', function () { setGender(0); });
-  $('createModal').addEventListener('mousedown', function (e) { if (e.target === this) { closeCreate(); } });
-
   document.addEventListener('keydown', function (e) {
     var typing = e.target && e.target.tagName === 'INPUT';
     if (e.code === 'Escape') {
       e.preventDefault();
-      if (!$('createModal').classList.contains('hidden')) { closeCreate(); }
-      else { emit('charselect:back'); }
+      emit('charselect:back');
       return;
     }
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       e.preventDefault();
-      if (!$('createModal').classList.contains('hidden')) { submitCreate(); }
-      else { primary(); }
+      primary();
       return;
     }
-    if (typing || modalOpen()) { return; }
+    if (typing) { return; }
     if (e.code === 'KeyA' || e.code === 'ArrowLeft') { select(S.idx - 1); }
     else if (e.code === 'KeyD' || e.code === 'ArrowRight') { select(S.idx + 1); }
   });
